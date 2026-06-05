@@ -20,9 +20,9 @@ export default function EducationSection() {
     {
       id: 'diff',
       title: '왜 사람마다 식후 혈당 반응이 전부 다를까요?',
-      icon: <BrainCircuit className="text-indigo-600" size={22} />,
+      icon: <BrainCircuit className="text-blue-600" size={22} />,
       badge: '대사 다양성',
-      color: 'border-indigo-100 bg-indigo-50/10 hover:border-indigo-200',
+      color: 'border-blue-100 bg-blue-50/10 hover:border-blue-200',
       text: '우리는 같은 음식을 먹어도 체내 장내 미생물의 생태계 분포, 췌장 세포의 인슐린 초기 동원 분비 능력, 허벅지나 엉덩이에 분포하고 있는 근육의 총 부피량, 그리고 밤사이 가졌던 수면의 질(스트레스 코르티솔 결합 정도)에 의해 흡수 속도가 극명하게 갈립니다. 과학자들은 이러한 생리학적 차이로 인해 100명에게 동일한 유기 흰쌀밥을 먹여도 혈당 곡선이 모두 제각각임을 무수한 논문을 통해 확인하였습니다.'
     },
     {
@@ -101,7 +101,7 @@ export default function EducationSection() {
                   className={`text-xs font-bold px-3.5 py-2 rounded-xl flex items-center gap-1.5 cursor-pointer border transition-all ${
                     isRead
                       ? 'bg-slate-200 text-slate-700 border-slate-300'
-                      : 'bg-indigo-600 text-white border-indigo-500 hover:bg-indigo-700 active:scale-97 shadow-3xs'
+                      : 'bg-blue-600 text-white border-blue-500 hover:bg-blue-700 active:scale-97 shadow-3xs'
                   }`}
                 >
                   {isRead ? (
