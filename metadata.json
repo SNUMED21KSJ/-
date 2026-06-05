@@ -1,0 +1,6 @@
+{
+  "name": "1일 혈당 체험 플랫폼",
+  "description": "같은 음식을 먹어도 사람마다 다르게 나타나는 혈당 반응의 차이를 학습하고 시뮬레이션하는 iPad용 교육용 웹 플랫폼입니다.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
