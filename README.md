@@ -1,20 +1,63 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# 학생용 혈당 다양성 탐구 실험실 (Blood Glucose Diversity Lab)
 
-# Run and deploy your AI Studio app
+학생들이 직접 음식을 선택하고 식후 시간대별 혈당 수치(0분, 30분, 60분)를 입력하며, 사람마다 다르게 나타나는 혈당 대사 다양성을 실시간으로 시각화 및 학습할 수 있는 **순수 정적 웹 애플리케이션(Pure Client-Side Web App)**입니다.
 
-This contains everything you need to run your app locally.
+본 프로젝트는 외부 AI 서비스나 백엔드 서버 없이 브라우저 내장 TypeScript 엔진과 로컬 데이터 연산을 기반으로 안전하게 작동하므로, 네트워크가 차단된 교실이나 태블릿 환경에서도 끊김 없는 탐구 실습을 지원합니다.
 
-View your app in AI Studio: https://ai.studio/apps/a74a6219-32ea-4c19-ae49-805ca0fc9ba0
+---
 
-## Run Locally
+## 🌟 주요 특징
 
-**Prerequisites:**  Node.js
+- **100% 클라이언트 사이드 실행**: 어떠한 외부 백엔드 API, Gemini API, DB 서버, OAuth 로그인 없이 안전하게 브라우저 내에서 직접 작동합니다.
+- **실시간 SVG 혈당 궤적 렌더링**: 입력값에 따른 혈당 변화 흐름을 직관적이고 미려한 SVG 그래프로 즉시 렌더링합니다.
+- **5대 대사 반응 자동 분류**: 수치 분석 알고리즘을 활용하여 안정형, 급상승형(스파이크), 완만상승형, 회복지연형, 지연상승형 5가지 시나리오로 혈당 반응을 정밀 검공하고 원리를 학습합니다.
+- **iPad / 모바일 Safari 최적화**: 100dvh 단위, iOS 안전구역 패딩(`env(safe-area-inset-bottom)`), 스크롤 튕김 방지 및 터치 타깃 확장을 포함하여 교실의 태블릿 환경에서 편안한 조작감을 제공합니다.
+- **로컬 디바이스 저장**: 다른 조나 학생들의 임시 데이터를 `localStorage`에 학급 대장보드 형태로 즉시 보존하고 확인 및 세션 전환을 할 수 있습니다.
 
+---
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## 🚀 시작하기 (Local Development)
+
+컴퓨터에 Node.js가 설치되어 있다면 즉시 로컬에서 실행할 수 있습니다.
+
+### 1단계: 의존성 라이브러리 설치
+```bash
+npm install
+```
+
+### 2단계: 로컬 개발 서버 작동
+```bash
+npm run dev
+```
+개발 서버가 시작되면 브라우저에서 제공된 주소(예: `http://localhost:3000`)에 접속하여 실시간 시연 및 코드 편집 결과를 확인할 수 있습니다.
+
+---
+
+## 📦 프로덕션 정적 빌드 & 정적 배포
+
+애플리케이션을 단 하나의 정적 파일 번들(`dist` 디렉터리)로 컴파일할 수 있습니다.
+
+### 1단계: 빌드 명령어 실행
+```bash
+npm run build
+```
+
+이 명령어는 프로젝트 소스코드를 고도의 브라우저 최적화 단계를 거쳐 경량화된 HTML, CSS, JavaScript 파일로 압축하여 `/dist` 폴더 안에 출력합니다.
+
+### 2단계: 정적 호스팅 무료 배포
+빌드가 완료되어 만들어진 `/dist` 디렉터리는 어떤 종류의 동적인 웹 구성 요소(Node.js, Express, Firebase Functions 등)를 요구하지 않습니다. 따라서 다음 무료 정적 웹 템플릿 호스팅 서비스에 폴더를 그대로 업로드하는 것만으로 전 세계 어디서든 사용 가능하게 배포됩니다.
+
+- **Vercel**: `vercel` CLI를 사용하거나 공식 웹사이트에 repository를 연결하여 단 1초 만에 빌드/배포합니다.
+- **Netlify**: 완성된 `/dist` 폴더를 Netlify App의 드래그 앤 드롭 영역에 놓기만 하면 즉석 무료 주소(URL)가 발급됩니다.
+- **GitHub Pages**: 프로젝트 설정 창의 `Pages` 메뉴에서 빌드 타깃 브랜치를 만들어 빌드하거나 GitHub Actions를 통하여 GitHub 도메인 하위에 즉시 정적 웹사이트를 생성할 수 있습니다.
+
+---
+
+## 🛠️ 기술 및 아키텍처 사양
+
+- **프레임워크**: React v19 + TypeScript v5 + Vite v6
+- **스타일링**: Tailwind CSS v4 (iOS safe-area 반응형 레이아웃 탑재)
+- **아이콘 라이브러리**: Lucide React (가독성 높은 벡터 아이콘)
+- **사용자 인터랙션 애니메이션**: Motion v12
+- **환경 변수**: 필요 없음 (0개의 API Key, 0개의 `.env` 의존)
+- **시뮬레이션 가속 프리셋**: 수업 시간 교실 내 속도 향상을 위한 대사 시나리오 프리셋 기본 내장
