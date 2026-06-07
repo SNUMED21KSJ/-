@@ -16,6 +16,11 @@ import { GlucoseData, GlucoseType, LifestyleAnswers } from './types';
  * - 완만상승형 (Gradual): moderate rise without sharp spike (between 30 and 49 mg/dL)
  */
 export function classifyGlucoseResponse(fasting: number, data: GlucoseData): GlucoseType {
+  // C. 역반응형: glucose35 > glucose0 이고 glucose60 > glucose30 인 경우 (highest priority)
+  if (data.min30 > fasting && data.min60 > data.min30) {
+    return 'reversed';
+  }
+
   // Highest post-meal value
   const postMealValues = [data.min30, data.min60];
   const peakValue = Math.max(...postMealValues);
@@ -158,6 +163,26 @@ export const GLUCOSE_TYPE_DETAILS: Record<GlucoseType, TypeDetail> = {
       '극도로 잠이 적어(5시간 미만) 성장 호르몬 복구율이 급감하고 활성 축적이 방해받았습니다.',
       '낮은 심폐 대사 운동량으로 인해 주 근육층 포도당 소비 기능이 꺼졌습니다.'
     ]
+  },
+  reversed: {
+    title: 'C. 역반응형 (Paradoxical Rise)',
+    emoji: '⚠️',
+    badgeColor: 'bg-rose-100 text-rose-800 border-rose-200',
+    textColor: 'text-rose-700',
+    borderColor: 'border-rose-200',
+    bgColor: 'bg-rose-50/70',
+    description: '걷기 후에도 혈당이 안정되지 않고 오히려 더 상승하는 유형입니다. 일반적으로 가벼운 활동은 식후 혈당 조절에 도움을 줄 수 있지만, 이 유형에서는 활동 후에도 혈당 상승이 지속됩니다.',
+    impacts: [
+      '일반적으로 식후 가벼운 걷기는 혈당을 낮추는 데 도움을 줄 수 있지만, C. 역반응형에서는 걷기 후에도 혈당 상승이 지속되거나 오히려 더 높아집니다.',
+      '식후 수축과 이완 호르몬의 불균형 혹은 수면 부족/스트레스 호르몬 반응이 원인일 수 있습니다.',
+      '혈당 상승 폭이 뒤늦게 극대화되어 세포 및 혈관 벽에 가해지는 부담이 장기화될 수 있습니다.',
+      '혈당이 기준 시점 이후 상승하고, 걷기 후에도 하강하지 않으며 오히려 추가 상승하는 패턴입니다.'
+    ],
+    mechanisms: [
+      '이 유형은 단순히 “운동이 효과가 없다”는 뜻이 아닙니다. 개인에 따라 식사 구성, 운동 시간, 운동 강도, 스트레스 반응, 인슐린 반응 차이에 따라 혈당 변화가 다르게 나타날 수 있음을 보여주는 중요한 유형입니다.',
+      '운동의 강도가 몸 상태(지쳤거나 심한 수면 부족)에 비해 높아 일시적으로 생리학적 코르티솔 및 아드레날린 수치가 상승했을 가능성이 있습니다.',
+      '근육이 운동을 시작하면서 산소를 소비하는 속도보다 당 공급 및 간의 당 생성 신호 유발 능력이 더 우세하게 나타났을 때 관찰됩니다.'
+    ]
   }
 };
 
@@ -165,6 +190,41 @@ export const GLUCOSE_TYPE_DETAILS: Record<GlucoseType, TypeDetail> = {
  * Generates clinical-inspired suggestions based on questionnaire and results
  */
 export function generateSuggestions(answers: LifestyleAnswers, glucoseType: GlucoseType) {
+  if (glucoseType === 'reversed') {
+    return [
+      {
+        title: '🏃 가벼운 걷기부터 시작하기',
+        description: '식후 바로 강한 운동을 하기보다는 가벼운 걷기부터 시작합니다.',
+        icon: '🚶',
+        color: 'border-blue-200 bg-blue-50/50 text-blue-900',
+      },
+      {
+        title: '⏱️ 운동 시간과 강도 조절',
+        description: '걷기 후에도 혈당이 계속 상승한다면 운동 시간과 강도를 조절합니다.',
+        icon: '⌚',
+        color: 'border-amber-200 bg-amber-50/50 text-amber-900',
+      },
+      {
+        title: '🥗 식사 구성과 탄수화물 섭취량 점검',
+        description: '탄수화물 섭취량과 식사 구성을 함께 확인합니다.',
+        icon: '🥗',
+        color: 'border-emerald-200 bg-emerald-50/50 text-emerald-950',
+      },
+      {
+        title: '📊 반복적인 패턴 확인하기',
+        description: '같은 조건에서 반복 측정하여 일시적 반응인지 반복되는 패턴인지 확인합니다.',
+        icon: '🔬',
+        color: 'border-purple-200 bg-purple-50/50 text-purple-900',
+      },
+      {
+        title: '🚨 신체 저하 징후 발생 시 전문가 상담',
+        description: '혈당이 매우 높거나 어지러움, 심한 갈증, 피로감 등의 증상이 동반되면 전문가 상담이 필요합니다.',
+        icon: '⚕️',
+        color: 'border-rose-200 bg-rose-50/50 text-rose-950',
+      },
+    ];
+  }
+
   const suggestions: Array<{
     title: string;
     description: string;
@@ -280,5 +340,17 @@ export const SIMULATION_PRESETS: Record<string, {name: string; fasting: number; 
     fasting: 88,
     data: { fasting: 88, min30: 124, min60: 98 },
     responseType: 'gradual',
+  },
+  reversed_example: {
+    name: 'C. 역반응형 (걷기 후 추가 상승 1)',
+    fasting: 100,
+    data: { fasting: 100, min30: 140, min60: 170 },
+    responseType: 'reversed',
+  },
+  reversed_example2: {
+    name: 'C. 역반응형 (걷기 후 추가 상승 2)',
+    fasting: 105,
+    data: { fasting: 105, min30: 130, min60: 150 },
+    responseType: 'reversed',
   }
 };

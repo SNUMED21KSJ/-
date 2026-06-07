@@ -35,6 +35,16 @@ export default function Home({ onStart, history, onClearHistory, onViewRecord }:
         </p>
       </div>
 
+      {/* 6 Types Information Alert Banner */}
+      <div className="w-full bg-blue-50/50 border border-blue-200/60 rounded-2xl p-4 md:p-5 mb-8 flex flex-col sm:flex-row items-start gap-3.5 text-sm text-slate-700">
+        <span className="text-xl select-none mt-0.5">🔬</span>
+        <div>
+          <h4 className="font-extrabold text-slate-900">분류 체계 안내</h4>
+          <p className="text-xs font-semibold text-slate-600 mt-1">이 앱은 혈당 반응을 6가지 유형으로 분류합니다.</p>
+          <p className="text-xs text-slate-500 mt-0.5">C. 역반응형은 걷기 후에도 혈당이 안정되지 않고 오히려 상승하는 유형입니다.</p>
+        </div>
+      </div>
+
       {/* Main Feature Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mb-10">
         <div className="bg-white border border-slate-200/80 hover:border-blue-200 p-6 rounded-2xl shadow-xs transition-all duration-200">
@@ -51,9 +61,9 @@ export default function Home({ onStart, history, onClearHistory, onViewRecord }:
           <div className="bg-emerald-50 text-emerald-600 w-12 h-12 rounded-xl flex items-center justify-center font-bold mb-4">
             <GraduationCap size={24} />
           </div>
-          <h3 className="font-bold text-slate-800 text-lg mb-1.5">5대 혈당 반응 분류</h3>
+          <h3 className="font-bold text-slate-800 text-lg mb-1.5">6가지 혈당 반응 유형</h3>
           <p className="text-sm text-slate-500 leading-relaxed">
-            학생들은 자신이 키인한 데이터가 ‘급상승형’, ‘안정형’, ‘지연상승형’, ‘회복지연형’, ‘완만상승형’ 중 어디에 매치되는지 의학적 공식 규칙 유형으로 검사받습니다.
+            학생들은 자신이 키인한 데이터가 ‘안정형’, ‘급상승형’, ‘완만상승형’, ‘C. 역반응형’, ‘회복지연형’, ‘지연상승형’ 중 어디에 매치되는지 의학적 공식 규칙 유형으로 검사받습니다.
           </p>
         </div>
 
