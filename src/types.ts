@@ -32,7 +32,7 @@ export type GlucoseType =
   | 'delayed'      // 지연상승형
   | 'gradual'      // 완만상승형
   | 'slow_recovery' // 회복지연형
-  | 'reversed';    // C. 역반응형
+  | 'reversed';    // 역반응형
 
 export interface SimulationResult {
   id: string;

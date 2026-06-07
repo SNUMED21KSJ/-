@@ -16,7 +16,7 @@ import { GlucoseData, GlucoseType, LifestyleAnswers } from './types';
  * - 완만상승형 (Gradual): moderate rise without sharp spike (between 30 and 49 mg/dL)
  */
 export function classifyGlucoseResponse(fasting: number, data: GlucoseData): GlucoseType {
-  // C. 역반응형: glucose35 > glucose0 이고 glucose60 > glucose30 인 경우 (highest priority)
+  // 역반응형: glucose30 > glucose0 이고 glucose60 > glucose30 인 경우 (highest priority)
   if (data.min30 > fasting && data.min60 > data.min30) {
     return 'reversed';
   }
@@ -165,7 +165,7 @@ export const GLUCOSE_TYPE_DETAILS: Record<GlucoseType, TypeDetail> = {
     ]
   },
   reversed: {
-    title: 'C. 역반응형 (Paradoxical Rise)',
+    title: '역반응형 (Paradoxical Rise)',
     emoji: '⚠️',
     badgeColor: 'bg-rose-100 text-rose-800 border-rose-200',
     textColor: 'text-rose-700',
@@ -173,7 +173,7 @@ export const GLUCOSE_TYPE_DETAILS: Record<GlucoseType, TypeDetail> = {
     bgColor: 'bg-rose-50/70',
     description: '걷기 후에도 혈당이 안정되지 않고 오히려 더 상승하는 유형입니다. 일반적으로 가벼운 활동은 식후 혈당 조절에 도움을 줄 수 있지만, 이 유형에서는 활동 후에도 혈당 상승이 지속됩니다.',
     impacts: [
-      '일반적으로 식후 가벼운 걷기는 혈당을 낮추는 데 도움을 줄 수 있지만, C. 역반응형에서는 걷기 후에도 혈당 상승이 지속되거나 오히려 더 높아집니다.',
+      '일반적으로 식후 가벼운 걷기는 혈당을 낮추는 데 도움을 줄 수 있지만, 역반응형에서는 걷기 후에도 혈당 상승이 지속되거나 오히려 더 높아집니다.',
       '식후 수축과 이완 호르몬의 불균형 혹은 수면 부족/스트레스 호르몬 반응이 원인일 수 있습니다.',
       '혈당 상승 폭이 뒤늦게 극대화되어 세포 및 혈관 벽에 가해지는 부담이 장기화될 수 있습니다.',
       '혈당이 기준 시점 이후 상승하고, 걷기 후에도 하강하지 않으며 오히려 추가 상승하는 패턴입니다.'
@@ -342,13 +342,13 @@ export const SIMULATION_PRESETS: Record<string, {name: string; fasting: number; 
     responseType: 'gradual',
   },
   reversed_example: {
-    name: 'C. 역반응형 (걷기 후 추가 상승 1)',
+    name: '역반응형 (걷기 후 추가 상승 1)',
     fasting: 100,
     data: { fasting: 100, min30: 140, min60: 170 },
     responseType: 'reversed',
   },
   reversed_example2: {
-    name: 'C. 역반응형 (걷기 후 추가 상승 2)',
+    name: '역반응형 (걷기 후 추가 상승 2)',
     fasting: 105,
     data: { fasting: 105, min30: 130, min60: 150 },
     responseType: 'reversed',

@@ -41,7 +41,7 @@ export default function Home({ onStart, history, onClearHistory, onViewRecord }:
         <div>
           <h4 className="font-extrabold text-slate-900">분류 체계 안내</h4>
           <p className="text-xs font-semibold text-slate-600 mt-1">이 앱은 혈당 반응을 6가지 유형으로 분류합니다.</p>
-          <p className="text-xs text-slate-500 mt-0.5">C. 역반응형은 걷기 후에도 혈당이 안정되지 않고 오히려 상승하는 유형입니다.</p>
+          <p className="text-xs text-slate-500 mt-0.5">역반응형은 걷기 후에도 혈당이 안정되지 않고 오히려 상승하는 유형입니다.</p>
         </div>
       </div>
 
@@ -63,7 +63,7 @@ export default function Home({ onStart, history, onClearHistory, onViewRecord }:
           </div>
           <h3 className="font-bold text-slate-800 text-lg mb-1.5">6가지 혈당 반응 유형</h3>
           <p className="text-sm text-slate-500 leading-relaxed">
-            학생들은 자신이 키인한 데이터가 ‘안정형’, ‘급상승형’, ‘완만상승형’, ‘C. 역반응형’, ‘회복지연형’, ‘지연상승형’ 중 어디에 매치되는지 의학적 공식 규칙 유형으로 검사받습니다.
+            학생들은 자신이 키인한 데이터가 ‘안정형’, ‘급상승형’, ‘완만상승형’, ‘역반응형’, ‘회복지연형’, ‘지연상승형’ 중 어디에 매치되는지 의학적 공식 규칙 유형으로 검사받습니다.
           </p>
         </div>
 
